@@ -5,12 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bunk-o-Meter</title>
   <style>
-    /* Overall body styling */
+    /* Overall body styling with fade-in effect */
     body {
       font-family: Arial, sans-serif;
       background-color: #000000;
       margin: 0;
       padding: 0;
+      opacity: 0; /* Start hidden */
+      animation: fadeInBody 1s forwards;
+    }
+    @keyframes fadeInBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* Main container to center content */
@@ -104,7 +110,20 @@
       background-color: rgba(0,0,0,0.5);
       padding: 10px;
       box-sizing: border-box;
+      opacity: 0; /* For fade-in */
     }
+    /* When the modal is shown, use flex for centering and animate fade-in */
+    .modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.60s forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     .modal-content {
       background-color: #fff;
       margin: auto;
@@ -272,7 +291,7 @@
               }
             }
             if (parsedRows.length === 0) {
-              showModal("<p class='error'>No valid rows were recognized. Check your OCR text or adjust the regex.</p>");
+              showModal("<p class='error'>No valid rows were recognized. </p>");
               return;
             }
             let listHtml = "<ul class='subject-list'>";
@@ -300,7 +319,7 @@
             showModal(listHtml);
           }).catch(err => {
             spinner.style.display = "none";
-            showModal("<p class='error'>An error occurred during OCR processing.</p>");
+            showModal("<p class='error'>An error occurred during processing.Upload high quality screenshot</p>");
             console.error(err);
           });
         });
@@ -342,25 +361,22 @@
       const modal = document.getElementById('resultModal');
       const modalContent = document.getElementById('modalContent');
       modalContent.innerHTML = content;
-      modal.style.display = 'flex'; // Use flex display for responsiveness
+      modal.classList.add('show'); // Trigger fade-in effect for popup
     }
 
     document.getElementById('modalClose').onclick = function() {
-      document.getElementById('resultModal').style.display = 'none';
+      document.getElementById('resultModal').classList.remove('show');
     };
 
     window.onclick = function(event) {
       const modal = document.getElementById('resultModal');
       if (event.target === modal) {
-        modal.style.display = 'none';
+        modal.classList.remove('show');
       }
     };
 
     document.addEventListener("DOMContentLoaded", function () {
-      const modal = document.getElementById('resultModal');
-      modal.style.display = 'none';
-      modal.style.alignItems = 'center';
-      modal.style.justifyContent = 'center';
+      // The modal is initially hidden via CSS; no additional JS needed here.
     });
   </script>
 </body>
