@@ -8,7 +8,7 @@
     /* Overall body styling */
     body {
       font-family: Arial, sans-serif;
-      background-color: #ffcc00;
+      background-color: #000000;
       margin: 0;
       padding: 0;
     }
@@ -23,7 +23,7 @@
 
     /* Section card style */
     .section {
-      background: #fff;
+      background: #dedcdc;
       border-radius: 10px;
       box-shadow: 3px 3px 10px rgba(0,0,0,0.3);
       margin: 20px auto;
@@ -146,6 +146,12 @@
 
     /* Hide the canvas */
     canvas { display: none; }
+
+    @keyframes gradientText {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
   </style>
   <!-- Include Tesseract.js -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.5/dist/tesseract.min.js"></script>
@@ -154,8 +160,9 @@
   <div class="main-container">
     <!-- Manual Calculation Section -->
     <div class="section">
-      <h1>Bunk-o-Meter 🎓</h1>
-      <p>Created by:Aayush :)</p>
+      <h1 class="cool-animation">Bunk-o-Meter 🎓</h1>
+      <img src="/cat.png" height="100px" width="100px">
+      <p>Created by: Aayush </p>
       <label for="total">Total Classes:</label>
       <input type="number" id="total" placeholder="e.g., 100">
       <label for="attended">Attended Classes:</label>
@@ -171,7 +178,7 @@
         You can get your attendance from here : <a href="https://adamasknowledgecity.ac.in/student/attendance">Click Here</a>
       </p>
       <input type="file" id="attendanceImage" accept="image/*">
-      <button onclick="processTableImage()">Extract</button>
+      <button onclick="processTableImage()">Upload</button>
       <!-- Spinner shown during processing -->
       <div id="spinner" class="spinner"></div>
     </div>
@@ -184,6 +191,8 @@
   <div id="resultModal" class="modal">
     <div class="modal-content">
       <span class="close" id="modalClose">&times;</span>
+      <!-- Added cat image at the top of the popup -->
+      <img src="/cat.png" height="100px" width="100px">
       <div id="modalContent"></div>
     </div>
   </div>
